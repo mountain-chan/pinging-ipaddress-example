@@ -3,6 +3,7 @@ import os
 import subprocess  # For executing a shell command
 import time
 
+from enums import IP_ADDRESSES, INTERVAL
 from utils import MyMail
 
 
@@ -37,14 +38,15 @@ def ping(host):
 
 
 if __name__ == '__main__':
-    interval = 10  # time in seconds
-    list_ip_addresses = ["sv2.vn.boot.ai", "sv3.vn.boot.ai", "13.212.239.89"]
+    """
+    python main.py
+    """
     healthy_status = {}
-    for ipaddress in list_ip_addresses:
+    for ipaddress in IP_ADDRESSES:
         healthy_status[ipaddress] = True
 
     while True:
-        for ipaddress in list_ip_addresses:
+        for ipaddress in IP_ADDRESSES:
             if healthy_status[ipaddress] and ping(ipaddress) is False:
                 healthy_status[ipaddress] = False
                 my_mail = MyMail(ipaddress)
@@ -53,4 +55,4 @@ if __name__ == '__main__':
                 healthy_status[ipaddress] = True
                 my_mail = MyMail(ipaddress, server_status="UP")
                 my_mail.send_mail()
-        time.sleep(interval)
+        time.sleep(INTERVAL)
