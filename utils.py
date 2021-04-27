@@ -3,6 +3,8 @@ from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+import pytz
+
 from enums import RECIPIENTS
 
 
@@ -20,7 +22,7 @@ class MyMail:
         self.message["From"] = self.sender_email
         self.message["To"] = ", ".join(RECIPIENTS)
 
-        self.my_dt = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+        self.my_dt = datetime.now(tz=pytz.timezone("Asia/Ho_Chi_Minh")).strftime("%d-%m-%Y %H:%M:%S")
 
         self.html = "<html> <body> " \
                     "<h4>YOUR SERVER IS " + server_status + "</h4> " \
