@@ -1,25 +1,9 @@
-import platform  # For getting the operating system name
-import os
-import subprocess  # For executing a shell command
+import platform
+import subprocess
 import time
 
 from enums import IP_ADDRESSES, INTERVAL
 from utils import MyMail
-
-
-def check():
-    current_os = platform.system().lower()
-    parameter = '-n' if current_os == 'windows' else '-c'
-
-    ip = "sv3.vn.boot.ai"
-    ip = "192.168.1.57"
-    exit_code = os.system(f"ping {parameter} 1 {ip}")
-    print(exit_code)
-    exit_code = os.popen(f"ping {parameter} 1 {ip}").read()
-    if "unreachable" or "Request timed out" in exit_code:
-        print(f"\n{ip} is down")
-    else:
-        print(f"\n{ip} is healthy")
 
 
 def ping(host):
